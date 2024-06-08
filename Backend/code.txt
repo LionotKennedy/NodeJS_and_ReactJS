@@ -1,0 +1,38 @@
+//************** LOGIN **************//
+
+app.post("/login", (req, res) => {
+  const { Email, Password } = req.body;
+
+  console.log(Email);
+  console.log(Password);
+  
+  const sqls = " SELECT * FROM users WHERE Password = '" + Password + "' AND Email = '" + Email + "' ";
+  
+  // const values = [Password, Email]
+
+  // console.log(values),
+  postgreSQL.query(sqls, (err, data) => {
+
+    // if (err) {
+    //   console.log(err);
+    //   console.log("err");
+    //   res.json("Misy erreur");
+    // }
+    // if(data.length > 0) {
+    //   res.json({Status: "Success"}); 
+    //   console.log("tsy misy erreur");
+    // } else {
+    //   res.json({Status: "coucou"});
+    //   res.json("tsy misy erreur");
+    //   res.json("Failed");
+    //   console.log("Failed");
+    // }
+
+    if (err) {
+      console.log(err);
+      res.json("Misy erreur");
+    } else {
+      return res.status(200).json(data.rows);
+    }
+  });
+});
